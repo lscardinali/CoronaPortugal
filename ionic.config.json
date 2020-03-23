@@ -1,0 +1,7 @@
+{
+  "name": "Corona PT",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
