@@ -10,10 +10,11 @@ import {
   IonTabs
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
+import { ellipse, square, triangle, helpBuoy, barChartOutline, newspaper, albums, helpBuoyOutline, newspaperOutline, albumsOutline } from 'ionicons/icons';
+import SummaryPage from './pages/summary/SummaryPage';
+import EvolutionPage from './pages/evolution/EvolutionPage';
 import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import Help from './pages/Help';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -39,23 +40,28 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route path="/tab1" component={Tab1} exact={true} />
+          <Route path="/summary" component={SummaryPage} exact={true} />
           <Route path="/tab2" component={Tab2} exact={true} />
-          <Route path="/tab3" component={Tab3} />
-          <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
+          <Route path="/help" component={Help} />
+          <Route path="/evolution" component={EvolutionPage} />
+          <Route path="/" render={() => <Redirect to="/summary" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
+          <IonTabButton tab="summary" href="/summary">
+            <IonIcon icon={albumsOutline} />
+            <IonLabel>Sumário</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
+            <IonIcon icon={newspaperOutline} />
+            <IonLabel>Notícias</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={square} />
-            <IonLabel>Tab 3</IonLabel>
+          <IonTabButton tab="evolution" href="/evolution">
+            <IonIcon icon={barChartOutline} />
+            <IonLabel>Evolução</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="help" href="/help">
+            <IonIcon icon={helpBuoyOutline} />
+            <IonLabel>Ajuda</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

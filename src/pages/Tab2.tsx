@@ -1,6 +1,7 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCol, IonGrid, IonRow, IonProgressBar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
+import { TwitterTimelineEmbed } from 'react-twitter-embed';
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
@@ -8,16 +9,28 @@ const Tab2: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 2</IonTitle>
+          <IonTitle>Notícias</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
+            <IonTitle size="large">Notícias</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Tab 2 page" />
+        <IonGrid fixed><IonRow><IonCol><TwitterTimelineEmbed
+          sourceType="profile"
+          screenName="dgsaude"
+          theme={window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : null}
+          transparent
+          noFooter
+          noHeader
+          noBorders
+          placeholder={<IonProgressBar type="indeterminate" />}
+          options={{ theme: "dark" }}
+        /></IonCol></IonRow></IonGrid>
+
+
       </IonContent>
     </IonPage>
   );

@@ -1,10 +1,6 @@
-ion-content ion-toolbar {
-  --background: translucent;
-}
-
 
 ion-grid {
-  --ion-grid-width-xs:              100%;
+    --ion-grid-width-xs:              100%;
 --ion-grid-width-sm:              540px;
 --ion-grid-width-md:              540px;
 --ion-grid-width-lg:              540px;
@@ -12,10 +8,10 @@ ion-grid {
 }
 
 ion-card {
-  min-width: 180px;
-  margin: 0;
+    min-width: 180px;
+    margin: 0;
 }
 
 ion-skeleton-text {
-  height: 20px;
+    height: 20px;
 }
