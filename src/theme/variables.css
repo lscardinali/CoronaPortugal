@@ -278,3 +278,7 @@ http://ionicframework.com/docs/theming/ */
 
 
 }
+
+.ios .segment-margin {
+  padding: 16px;
+}

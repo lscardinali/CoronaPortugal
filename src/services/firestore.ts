@@ -1,6 +1,7 @@
 import firebase from './firebase';
 import Summary from '../models/summary';
 import Reading from '../models/reading';
+import NewCase from '../models/newCase';
 
 const db = firebase.firestore();
 
@@ -32,4 +33,15 @@ export const fetchHistory = async () => {
     });
 }
 
+export const fetchNewCases = async () => {
+    const snapshot = await db.collection('newCases').orderBy("date").get()
+    return snapshot.docs.map((doc) => {
+        const data = doc.data();
+        const date = data['date'].seconds * 1000;
+        return {
+            value: data['value'],
+            date: date,
+        } as NewCase
+    });
+}
 

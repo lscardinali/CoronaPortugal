@@ -10,12 +10,14 @@ const SummaryPage: React.FC = () => {
   const [summary, setSummary] = useState<Summary>();
 
   useEffect(() => {
+
     try {
       getSummary();
     } catch {
       getSummary();
     }
   }, [])
+
 
   const getSummary = async () => {
     let summary = await fetchSummary();
@@ -29,7 +31,7 @@ const SummaryPage: React.FC = () => {
           <IonTitle>Sumário</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Sumário</IonTitle>

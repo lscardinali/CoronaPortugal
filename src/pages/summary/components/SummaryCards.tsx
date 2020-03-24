@@ -9,7 +9,7 @@ interface SummaryCardProps {
 const SummaryCards: React.FC<SummaryCardProps> = ({ summary }) => {
     return (
         <div>
-            <IonGrid fixed>
+            <IonGrid fixed className="ion-padding" >
                 <IonRow>
                     <IonCol className="ion-text-center">
                         <IonLabel><p>Informações atualizadas todos os dias as 12:00PM (Fonte: DGS)</p>

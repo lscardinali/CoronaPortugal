@@ -13,7 +13,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle, helpBuoy, barChartOutline, newspaper, albums, helpBuoyOutline, newspaperOutline, albumsOutline } from 'ionicons/icons';
 import SummaryPage from './pages/summary/SummaryPage';
 import EvolutionPage from './pages/evolution/EvolutionPage';
-import Tab2 from './pages/Tab2';
+import NewsPage from './pages/news/NewsPage';
 import Help from './pages/Help';
 
 /* Core CSS required for Ionic components to work properly */
@@ -41,7 +41,7 @@ const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route path="/summary" component={SummaryPage} exact={true} />
-          <Route path="/tab2" component={Tab2} exact={true} />
+          <Route path="/news" component={NewsPage} exact={true} />
           <Route path="/help" component={Help} />
           <Route path="/evolution" component={EvolutionPage} />
           <Route path="/" render={() => <Redirect to="/summary" />} exact={true} />
@@ -51,7 +51,7 @@ const App: React.FC = () => (
             <IonIcon icon={albumsOutline} />
             <IonLabel>Sumário</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
+          <IonTabButton tab="news" href="/news">
             <IonIcon icon={newspaperOutline} />
             <IonLabel>Notícias</IonLabel>
           </IonTabButton>
