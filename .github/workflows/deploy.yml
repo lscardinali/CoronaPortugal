@@ -32,4 +32,4 @@ jobs:
       run: npm run-script build
     
     - name: Publish to Firebase
-      run: firebase deploy — token “$FIREBASE_TOKEN”
+      run: npx firebase deploy — token “$FIREBASE_TOKEN”
