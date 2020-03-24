@@ -23,7 +23,7 @@ const Help: React.FC = () => {
                   <IonCardTitle><a href="tel:808242424" style={{ textDecoration: "none" }}>808 24 24 24</a></IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
-                  Para tirar tirar dúvidas específicas, ligue ao SNS 24
+                  Se estiver com sintomas e para tirar dúvidas específicas, ligue ao SNS 24
                         </IonCardContent>
               </IonCard>
             </IonCol>
@@ -32,10 +32,10 @@ const Help: React.FC = () => {
             <IonCol>
               <IonCard>
                 <IonCardHeader>
-                  <IonCardTitle><a href="tel:220411190" style={{ textDecoration: "none" }}>220 411190</a></IonCardTitle>
+                  <IonCardTitle><a href="tel:220411190" style={{ textDecoration: "none" }}>220 411 190</a></IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
-                  Se tiver sintomas e estiver ao norte de Portugal, ligue a linha da Administração Regional de Saúde
+                  Se tiver sintomas e estiver no norte de Portugal, ligue para linha da Administração Regional de Saúde
                         </IonCardContent>
               </IonCard>
             </IonCol>
