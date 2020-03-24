@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Plugins } from '@capacitor/core';
+import { updateUniqueHits } from './services/firestore';
+
+const { Storage } = Plugins;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register();
 
 //Updates the Meta Tag for using the current color scheme when adding to home screen on iOS
@@ -16,3 +17,11 @@ if (meta) {
     meta.setAttribute("content", window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "white");
 }
 
+const checkForFirstAccess = async () => {
+    const ret = await Storage.get({ key: 'firstAccess' });
+    if (ret.value === null) {
+        updateUniqueHits();
+    }
+}
+
+checkForFirstAccess();

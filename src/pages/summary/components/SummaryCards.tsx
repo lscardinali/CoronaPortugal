@@ -1,6 +1,7 @@
 import React from 'react';
 import Summary from '../../../models/summary';
 import { IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, IonGrid, IonRow, IonCol, IonLabel, IonSkeletonText } from '@ionic/react';
+import moment from 'moment';
 
 interface SummaryCardProps {
     summary?: Summary;
@@ -12,7 +13,7 @@ const SummaryCards: React.FC<SummaryCardProps> = ({ summary }) => {
             <IonGrid fixed className="ion-padding" >
                 <IonRow>
                     <IonCol className="ion-text-center">
-                        <IonLabel><p>Informações atualizadas todos os dias as 12:00PM (Fonte: DGS)</p>
+                        <IonLabel><p>Ultima Atualização {moment(summary?.lastUpdated).format('DD/MM/YYYY h:mm:ss a')} (Fonte: DGS)</p>
                         </IonLabel>
                     </IonCol>
                 </IonRow>

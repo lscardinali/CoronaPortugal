@@ -17,6 +17,7 @@ export const fetchSummary = async () => {
         recovered: data['recovered'],
         suspects: data['suspects'],
         waitingResults: data['waitingResults'],
+        lastUpdated: data['lastUpdated'].seconds * 1000
     } as Summary
 }
 
@@ -45,3 +46,10 @@ export const fetchNewCases = async () => {
     });
 }
 
+
+export const updateUniqueHits = async () => {
+    const snapshot = await db.collection('analytics').get()
+    db.collection('analytics').doc('data').set({
+        firstOpen: snapshot.docs[0].data()["firstOpen"] + 1
+    }, { merge: true });
+}

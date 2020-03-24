@@ -7,4 +7,5 @@ export default interface Summary {
     recovered: number;
     suspects: number;
     waitingResults: number;
+    lastUpdated: number;
 }
