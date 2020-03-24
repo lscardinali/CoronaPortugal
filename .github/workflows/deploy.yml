@@ -20,9 +20,16 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    # Runs a single command using the runners shell
+    - name: Install Ionic
+      run: npm install 
+    
+    - name: Install Firebase
+      run: npm install firebase-tools -g
+
     # Runs a set of commands using the runners shell
     - name: Build Project
-      run: npx ionic build
+      run: npm run-script build
     
     - name: Publish to Firebase
-      run: npx firebase deploy — token “$FIREBASE_TOKEN”
+      run: firebase deploy — token “$FIREBASE_TOKEN”
