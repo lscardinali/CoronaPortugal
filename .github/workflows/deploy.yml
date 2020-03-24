@@ -32,4 +32,4 @@ jobs:
       run: ionic build
     
     - name: Publish to Firebase
-      run: firebase deploy
+      run: firebase deploy — token “$FIREBASE_TOKEN”
