@@ -32,6 +32,18 @@ const Help: React.FC = () => {
             <IonCol>
               <IonCard>
                 <IonCardHeader>
+                  <IonCardTitle><a href="tel:220411190" style={{ textDecoration: "none" }}>220 411190</a></IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  Se tiver sintomas e estiver ao norte de Portugal, ligue a linha da Administração Regional de Saúde
+                        </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonCard>
+                <IonCardHeader>
                   <IonCardTitle>Sintomas</IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
