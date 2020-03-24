@@ -30,3 +30,7 @@ jobs:
     
     - name: Publish to Firebase
       run: npm run-script deploy
+      env: # Or as an environment variable
+        super_secret: ${{ secrets.FIREBASE_TOKEN }}
+      with:
+        super_secret: ${{ secrets.FIREBASE_TOKEN }}
