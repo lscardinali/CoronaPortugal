@@ -22,7 +22,7 @@ const ProgressiveChart: React.FC = () => {
     return (
         <ResponsiveContainer
             width="100%"
-            height={500}>
+            height="78%">
             <BarChart
                 data={readings}
                 margin={{

@@ -23,7 +23,7 @@ const CumulativeChart: React.FC = () => {
     return (
         <ResponsiveContainer
             width="100%"
-            height={500}>
+            height="78%">
             <AreaChart
                 data={readings}
                 margin={{
