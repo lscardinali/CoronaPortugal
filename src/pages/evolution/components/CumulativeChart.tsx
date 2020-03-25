@@ -31,10 +31,6 @@ const CumulativeChart: React.FC = () => {
 
     const chart = (
         <div style={{ width: "100%", height: "70%" }}>
-            <IonItem>
-                <IonLabel>Mostrar casos suspeitos</IonLabel>
-                <IonToggle checked={showSuspect} onIonChange={e => setShowSuspect(e.detail.checked)} />
-            </IonItem>
             <ResponsiveContainer>
                 <LineChart
                     data={readings}
@@ -66,7 +62,12 @@ const CumulativeChart: React.FC = () => {
                         stroke="#ff4961"
                         fill="#ff4961" />
                 </LineChart>
-            </ResponsiveContainer></div>
+            </ResponsiveContainer>
+            <IonItem style={{ paddingTop: 16 }} color="black" lines="none">
+                <IonLabel>Mostrar casos suspeitos</IonLabel>
+                <IonToggle checked={showSuspect} onIonChange={e => setShowSuspect(e.detail.checked)} />
+            </IonItem>
+        </div>
     );
 
 

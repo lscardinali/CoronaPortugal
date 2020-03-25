@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
 import CumulativeChart from './components/CumulativeChart';
 import ProgressiveChart from './components/ProgressiveChart';
@@ -12,13 +12,13 @@ const EvolutionPage: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader>
+            <IonHeader translucent={true}>
                 <IonToolbar>
                     <IonTitle>Evolução</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent>
-                <IonHeader collapse="condense">
+            <IonContent fullscreen={true}>
+                <IonHeader collapse="condense" translucent={true}>
                     <IonToolbar>
                         <IonTitle size="large">Evolução</IonTitle>
                     </IonToolbar>

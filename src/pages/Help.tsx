@@ -4,13 +4,13 @@ import './Common.css'
 const Help: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent={true}>
         <IonToolbar>
           <IonTitle>Ajuda</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <IonHeader collapse="condense">
+      <IonContent fullscreen={true}>
+        <IonHeader collapse="condense" translucent={true}>
           <IonToolbar>
             <IonTitle size="large">Ajuda</IonTitle>
           </IonToolbar>

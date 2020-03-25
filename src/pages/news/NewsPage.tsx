@@ -6,13 +6,13 @@ import '../Common.css';
 const NewsPage: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent={true}>
         <IonToolbar>
           <IonTitle>Notícias</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <IonHeader collapse="condense">
+      <IonContent fullscreen={true}>
+        <IonHeader collapse="condense" translucent={true}>
           <IonToolbar>
             <IonTitle size="large">Notícias</IonTitle>
           </IonToolbar>

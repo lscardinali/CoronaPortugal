@@ -49,12 +49,12 @@ const SummaryPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent={true}>
         <IonToolbar>
           <IonTitle>Sumário</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent fullscreen={true}>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Sumário</IonTitle>
