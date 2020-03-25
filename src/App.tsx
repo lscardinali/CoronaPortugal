@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
@@ -10,7 +10,7 @@ import {
   IonTabs
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle, helpBuoy, barChartOutline, newspaper, albums, helpBuoyOutline, newspaperOutline, albumsOutline } from 'ionicons/icons';
+import { helpBuoy, barChartOutline, newspaper, albums, helpBuoyOutline, newspaperOutline, albumsOutline, barChart } from 'ionicons/icons';
 import SummaryPage from './pages/summary/SummaryPage';
 import EvolutionPage from './pages/evolution/EvolutionPage';
 import NewsPage from './pages/news/NewsPage';
@@ -35,10 +35,13 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => (
-  <IonApp>
+const App: React.FC = () => {
+
+  const [selectedTab, setSelectedTab] = useState<string>('summary');
+
+  return (<IonApp>
     <IonReactRouter>
-      <IonTabs>
+      <IonTabs onIonTabsDidChange={(event) => setSelectedTab(event.detail.tab)}>
         <IonRouterOutlet>
           <Route path="/summary" component={SummaryPage} exact={true} />
           <Route path="/news" component={NewsPage} exact={true} />
@@ -46,27 +49,28 @@ const App: React.FC = () => (
           <Route path="/evolution" component={EvolutionPage} />
           <Route path="/" render={() => <Redirect to="/summary" />} exact={true} />
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
+        <IonTabBar slot="bottom" translucent={true}>
           <IonTabButton tab="summary" href="/summary">
-            <IonIcon icon={albumsOutline} />
+            <IonIcon icon={selectedTab === 'summary' ? albums : albumsOutline} />
             <IonLabel>Sumário</IonLabel>
           </IonTabButton>
           <IonTabButton tab="news" href="/news">
-            <IonIcon icon={newspaperOutline} />
+            <IonIcon icon={selectedTab === 'news' ? newspaper : newspaperOutline} />
             <IonLabel>Notícias</IonLabel>
           </IonTabButton>
           <IonTabButton tab="evolution" href="/evolution">
-            <IonIcon icon={barChartOutline} />
+            <IonIcon icon={selectedTab === 'evolution' ? barChart : barChartOutline} />
             <IonLabel>Evolução</IonLabel>
           </IonTabButton>
           <IonTabButton tab="help" href="/help">
-            <IonIcon icon={helpBuoyOutline} />
+            <IonIcon icon={selectedTab === 'help' ? helpBuoy : helpBuoyOutline} />
             <IonLabel>Ajuda</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>
   </IonApp>
-);
+  );
+}
 
 export default App;
