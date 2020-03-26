@@ -44,25 +44,6 @@ const ProgressiveChart: React.FC = () => {
     }, [])
     const chart = (
         <div style={{ width: "100%", height: "70%" }}>
-            <IonItem lines="none">
-                {readings && <IonRange
-                    dualKnobs={true}
-                    min={0}
-                    max={readings.length - 1}
-                    step={1}
-                    snaps={true}
-                    ticks={false}
-                    value={{ lower: dateLowerRange, upper: dateUpperRange }}
-                    onIonChange={e => {
-                        const values = e.detail.value as { lower: number, upper: number };
-                        setDateLowerRange(values.lower);
-                        setDateUpperRange(values.upper)
-                    }}>
-                    <IonLabel slot="start">{readings && readings.length > 0 && moment(readings[dateLowerRange].date).format('DD/MM')}</IonLabel>
-                    <IonLabel slot="end">{readings && readings.length > dateUpperRange && moment(readings[dateUpperRange].date).format('DD/MM')}</IonLabel>
-                </IonRange>}
-            </IonItem>
-            <div className="ion-padding" />
             <ResponsiveContainer>
                 <BarChart
                     data={readings.slice(dateLowerRange, dateUpperRange + 1)}
@@ -81,6 +62,24 @@ const ProgressiveChart: React.FC = () => {
                         fill="#ff4961" />
                 </BarChart>
             </ResponsiveContainer>
+            <IonItem lines="none" style={{ paddingTop: 16 }}>
+                {readings && <IonRange
+                    dualKnobs={true}
+                    min={0}
+                    max={readings.length - 1}
+                    step={1}
+                    snaps={true}
+                    ticks={false}
+                    value={{ lower: dateLowerRange, upper: dateUpperRange }}
+                    onIonChange={e => {
+                        const values = e.detail.value as { lower: number, upper: number };
+                        setDateLowerRange(values.lower);
+                        setDateUpperRange(values.upper)
+                    }}>
+                    <IonLabel slot="start">{readings && readings.length > 0 && moment(readings[dateLowerRange].date).format('DD/MM')}</IonLabel>
+                    <IonLabel slot="end">{readings && readings.length > dateUpperRange && moment(readings[dateUpperRange].date).format('DD/MM')}</IonLabel>
+                </IonRange>}
+            </IonItem>
         </div>
     );
 

@@ -27,6 +27,16 @@ const SummaryCards: React.FC<SummaryCardProps> = ({ reading, updating }) => {
         <div>
             <IonGrid fixed className="ion-padding" >
                 <IonRow>
+                    <IonCol className="ion-text-center">
+                        {updating &&
+                            <IonLabel>
+                                <IonSpinner name="dots" color="primary" />
+                                <p>Atualizando dados...</p>
+                            </IonLabel>
+                        }
+                    </IonCol>
+                </IonRow>
+                <IonRow>
                     <IonCol>
                         <h4>Totais</h4>
                     </IonCol>
@@ -74,10 +84,9 @@ const SummaryCards: React.FC<SummaryCardProps> = ({ reading, updating }) => {
                     </IonCol>
                     <IonRow>
                         <IonCol className="ion-text-center">
-                            {updating ? <IonLabel ><IonSpinner name="dots" color="primary"> </IonSpinner><p>Atualizando dados...</p></IonLabel> :
-                                <IonLabel><p>Ultima Atualização {moment(reading?.editDate).format('DD/MM/YYYY h:mm:ss a')} (Fonte: DGS)</p>
-                                </IonLabel>
-                            }
+                            <IonLabel>
+                                <p>Ultima Atualização {moment(reading?.editDate).format('DD/MM/YYYY h:mm:ss a')} (Fonte: DGS)</p>
+                            </IonLabel>
                         </IonCol>
                     </IonRow>
                 </IonRow>
