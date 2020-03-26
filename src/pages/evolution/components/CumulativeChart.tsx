@@ -1,39 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import Reading from '../../../models/reading';
 import { ResponsiveContainer, XAxis, YAxis, Legend, Tooltip, LineChart, Line } from 'recharts';
 import moment from 'moment';
-import { fetchHistory } from '../../../services/firestore';
-import { IonSpinner, IonLabel, IonButton, IonItem, IonToggle } from '@ionic/react';
+import { fetchReadings, fetchCachedReadings } from '../../../services/network';
+import { IonSpinner, IonLabel, IonButton, IonItem, IonToggle, IonRange } from '@ionic/react';
 import './center.css';
+import { Reading } from '../../../models/reading';
 
+// FIXME: Refactor both screens and data to only one with different charts
 const CumulativeChart: React.FC = () => {
     const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+    const [dateLowerRange, setDateLowerRange] = useState<number>(0);
+    const [dateUpperRange, setDateUpperRange] = useState<number>(0);
     const [readings, setReadings] = useState<Reading[]>([])
     const [showSuspect, setShowSuspect] = useState<boolean>(true)
     const [showLoading, setShowLoading] = useState<boolean>(false);
     const [showError, setShowError] = useState<boolean>(false);
 
-    const getHistory = async () => {
+    const getReadings = async () => {
         setShowLoading(true);
-        try {
-            setReadings(await fetchHistory());
-            setShowLoading(false);
-        } catch {
-            setShowError(true);
+        let cachedReadings = await fetchCachedReadings();
+        if (cachedReadings.length > 0) {
+            setReadings(cachedReadings)
+            setDateUpperRange(cachedReadings.length - 1)
             setShowLoading(false);
         }
+
+        try {
+            let readings = await fetchReadings();
+
+            setReadings(readings);
+            setShowLoading(false);
+
+            setDateUpperRange(readings.length - 1)
+        } catch {
+            setShowError(true);
+        }
+        setShowLoading(false);
+
     }
 
     useEffect(() => {
-        getHistory();
+        getReadings();
     }, [])
 
     const chart = (
         <div style={{ width: "100%", height: "70%" }}>
+            <IonItem lines="none">
+                {readings && <IonRange
+                    dualKnobs={true}
+                    min={0}
+                    max={readings.length - 1}
+                    step={1}
+                    snaps={true}
+                    ticks={false}
+                    value={{ lower: dateLowerRange, upper: dateUpperRange }}
+                    onIonChange={e => {
+                        const values = e.detail.value as { lower: number, upper: number };
+                        setDateLowerRange(values.lower);
+                        setDateUpperRange(values.upper)
+                    }}>
+                    <IonLabel slot="start">{readings && readings.length > 0 && moment(readings[dateLowerRange].date).format('DD/MM')}</IonLabel>
+                    <IonLabel slot="end">{readings && readings.length > dateUpperRange && moment(readings[dateUpperRange].date).format('DD/MM')}</IonLabel>
+                </IonRange>}
+            </IonItem>
+            <div className="ion-padding" />
             <ResponsiveContainer>
                 <LineChart
-                    data={readings}
+                    data={readings.slice(dateLowerRange, dateUpperRange + 1)}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <XAxis
                         dataKey="date"
@@ -78,7 +112,7 @@ const CumulativeChart: React.FC = () => {
             </IonLabel>
             <IonButton
                 fill="outline"
-                onClick={(e) => getHistory()}>
+                onClick={(e) => getReadings()}>
                 Tentar novamente</IonButton>
         </div>
     } else if (showLoading) {

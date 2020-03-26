@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast } from '@ionic/react';
-import './SummaryPage.css';
-import Summary from '../../models/summary';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast, IonRefresher, IonRefresherContent } from '@ionic/react';
 import SummaryCards from './components/SummaryCards';
-import { fetchSummary } from '../../services/firestore';
+import { fetchReadings, fetchCachedReadings } from '../../services/network';
+import { Reading } from '../../models/reading';
+import './SummaryPage.css';
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
 
 const SummaryPage: React.FC = () => {
 
-  const [summary, setSummary] = useState<Summary>();
-
+  const [reading, setReading] = useState<Reading>();
   const [showDataToast, setShowDataToast] = useState(false);
+  const [showUpdating, setShowUpdating] = useState(false);
   const [showHomeScreenToast, setShowHomeScreenToast] = useState(false);
 
   useEffect(() => {
     checkForFirstTime();
     checkForAddToHome();
-    try {
-      getSummary();
-    } catch {
-      getSummary();
-    }
+    getSummary();
   }, [])
+
+  const doRefresh = async (event: CustomEvent) => {
+    await getSummary();
+    event.detail.complete();
+  }
 
   const checkForFirstTime = async () => {
     const ret = await Storage.get({ key: 'firstAccess' });
@@ -41,26 +42,37 @@ const SummaryPage: React.FC = () => {
     await Storage.set({ key: 'homeScreen', value: 'true' })
   }
 
-
   const getSummary = async () => {
-    let summary = await fetchSummary();
-    setSummary(summary);
+    setShowUpdating(true);
+    let cachedReadings = await fetchCachedReadings();
+    if (cachedReadings.length > 0) {
+      setReading(cachedReadings.find(reading => reading.lastRegister === "Sim"))
+    }
+    let readings = await fetchReadings();
+    setReading(readings.find(reading => reading.lastRegister === "Sim"));
+    setShowUpdating(false);
   }
 
   return (
-    <IonPage>
+    <IonPage id="summary-page">
+
       <IonHeader translucent={true}>
         <IonToolbar>
           <IonTitle>Sumário</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen={true}>
-        <IonHeader collapse="condense">
+        <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+          <IonRefresherContent>
+          </IonRefresherContent>
+        </IonRefresher>
+        <IonHeader collapse="condense" translucent={true}>
           <IonToolbar>
             <IonTitle size="large">Sumário</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <SummaryCards summary={summary} />
+
+        <SummaryCards reading={reading} updating={showUpdating} />
         <IonToast
           isOpen={showDataToast}
           onDidDismiss={() => setShowDataToast(false)}

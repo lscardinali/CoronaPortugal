@@ -1,39 +1,71 @@
 import React, { useEffect, useState } from 'react';
-import Reading from '../../../models/reading';
-import { ResponsiveContainer, XAxis, YAxis, Legend, Tooltip, LineChart, Line, BarChart, Bar } from 'recharts';
+import { ResponsiveContainer, XAxis, YAxis, Tooltip, BarChart, Bar } from 'recharts';
 import moment from 'moment';
-import { fetchHistory, fetchNewCases } from '../../../services/firestore';
-import { IonSpinner, IonLabel, IonButton, IonItem, IonToggle } from '@ionic/react';
+import { fetchReadings, fetchCachedReadings } from '../../../services/network';
+import { IonSpinner, IonLabel, IonButton, IonRange, IonItem } from '@ionic/react';
 import './center.css';
-import NewCase from '../../../models/newCase';
+import { Reading } from '../../../models/reading';
 
+// FIXME: Refactor both screens and data to only one with different charts
 const ProgressiveChart: React.FC = () => {
     const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    const [readings, setReadings] = useState<NewCase[]>([])
+    const [dateLowerRange, setDateLowerRange] = useState<number>(0);
+    const [dateUpperRange, setDateUpperRange] = useState<number>(0);
+    const [readings, setReadings] = useState<Reading[]>([])
     const [showLoading, setShowLoading] = useState<boolean>(false);
     const [showError, setShowError] = useState<boolean>(false);
 
-    const getProgressiveCases = async () => {
+    const getReadings = async () => {
         setShowLoading(true);
-        try {
-            setReadings(await fetchNewCases());
-            setShowLoading(false);
-        } catch {
-            setShowError(true);
+        let cachedReadings = await fetchCachedReadings();
+        if (cachedReadings.length > 0) {
+            setReadings(cachedReadings)
+            setDateUpperRange(cachedReadings.length - 1)
             setShowLoading(false);
         }
-    }
+
+        try {
+            let readings = await fetchReadings();
+            console.log(readings);
+            setReadings(readings);
+            setDateUpperRange(readings.length - 1)
+
+        } catch (error) {
+            console.log(error);
+            setShowError(true);
+        }
+        setShowLoading(false);
+
+    };
 
     useEffect(() => {
-        getProgressiveCases();
+        getReadings();
     }, [])
-
     const chart = (
         <div style={{ width: "100%", height: "70%" }}>
+            <IonItem lines="none">
+                {readings && <IonRange
+                    dualKnobs={true}
+                    min={0}
+                    max={readings.length - 1}
+                    step={1}
+                    snaps={true}
+                    ticks={false}
+                    value={{ lower: dateLowerRange, upper: dateUpperRange }}
+                    onIonChange={e => {
+                        const values = e.detail.value as { lower: number, upper: number };
+                        setDateLowerRange(values.lower);
+                        setDateUpperRange(values.upper)
+                    }}>
+                    <IonLabel slot="start">{readings && readings.length > 0 && moment(readings[dateLowerRange].date).format('DD/MM')}</IonLabel>
+                    <IonLabel slot="end">{readings && readings.length > dateUpperRange && moment(readings[dateUpperRange].date).format('DD/MM')}</IonLabel>
+                </IonRange>}
+            </IonItem>
+            <div className="ion-padding" />
             <ResponsiveContainer>
                 <BarChart
-                    data={readings}
+                    data={readings.slice(dateLowerRange, dateUpperRange + 1)}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <XAxis
                         dataKey="date"
@@ -45,7 +77,7 @@ const ProgressiveChart: React.FC = () => {
                         labelStyle={{ color: darkMode ? "white" : "black" }}
                         contentStyle={darkMode ? { backgroundColor: "#111111", borderColor: "#222222" } : undefined} />
                     <Bar name="Confirmados"
-                        dataKey="value"
+                        dataKey="newCases"
                         fill="#ff4961" />
                 </BarChart>
             </ResponsiveContainer>
@@ -60,7 +92,7 @@ const ProgressiveChart: React.FC = () => {
             </IonLabel>
             <IonButton
                 fill="outline"
-                onClick={(e) => getProgressiveCases()}>
+                onClick={(e) => getReadings()}>
                 Tentar novamente</IonButton>
         </div>
     } else if (showLoading) {

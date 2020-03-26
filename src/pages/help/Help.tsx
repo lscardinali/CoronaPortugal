@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonLabel, IonItem, IonGrid, IonRow, IonCol } from '@ionic/react';
-import './Common.css'
+import './../Common.css'
 const Help: React.FC = () => {
   return (
     <IonPage>

@@ -14,7 +14,7 @@ import { helpBuoy, barChartOutline, newspaper, albums, helpBuoyOutline, newspape
 import SummaryPage from './pages/summary/SummaryPage';
 import EvolutionPage from './pages/evolution/EvolutionPage';
 import NewsPage from './pages/news/NewsPage';
-import Help from './pages/Help';
+import Help from './pages/help/Help';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -41,8 +41,19 @@ const App: React.FC = () => {
 
   return (<IonApp>
     <IonReactRouter>
-      <IonTabs onIonTabsDidChange={(event) => setSelectedTab(event.detail.tab)}>
-        <IonRouterOutlet>
+      {/* <IonSplitPane contentId="main"> */}
+      <IonTabs onIonTabsDidChange={(event) => setSelectedTab(event.detail.tab)} >
+        {/* <IonMenu contentId="main" className="ion-hide-md-down" >
+            <IonList className="ion-padding" >
+              <IonListHeader style={{ fontSize: "22px", fontWeight: 600 }} >
+                CoronaPT
+            </IonListHeader>
+              <IonItem lines="none" button className="menu selected"><IonIcon icon={albums} slot="start" ></IonIcon> <IonLabel>Sumário</IonLabel></IonItem>
+              <IonItem lines="none" button className="menu"><IonIcon icon={albums} slot="start" ></IonIcon> Menu Item 2</IonItem>
+            </IonList>
+          </IonMenu> */}
+
+        <IonRouterOutlet id="main">
           <Route path="/summary" component={SummaryPage} exact={true} />
           <Route path="/news" component={NewsPage} exact={true} />
           <Route path="/help" component={Help} />
@@ -68,6 +79,7 @@ const App: React.FC = () => {
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
+      {/* </IonSplitPane> */}
     </IonReactRouter>
   </IonApp>
   );

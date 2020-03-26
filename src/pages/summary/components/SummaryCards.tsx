@@ -1,118 +1,85 @@
 import React from 'react';
-import Summary from '../../../models/summary';
-import { IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, IonGrid, IonRow, IonCol, IonLabel, IonSkeletonText } from '@ionic/react';
+import { IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, IonGrid, IonRow, IonCol, IonLabel, IonSkeletonText, IonSpinner } from '@ionic/react';
 import moment from 'moment';
+import { Reading } from '../../../models/reading';
 
 interface SummaryCardProps {
-    summary?: Summary;
+    reading?: Reading;
+    updating: boolean;
 }
 
-const SummaryCards: React.FC<SummaryCardProps> = ({ summary }) => {
+const SummaryCards: React.FC<SummaryCardProps> = ({ reading, updating }) => {
+
+    const summaryCard = (title: string, value: number | null | undefined, color = "") => (
+        <IonCard>
+            <IonCardHeader>
+                <IonCardTitle color={color}>
+                    {value ? value.toLocaleString() : <IonSkeletonText animated />}
+                </IonCardTitle>
+                <IonCardSubtitle color={color}>
+                    {title}
+                </IonCardSubtitle>
+            </IonCardHeader>
+        </IonCard>
+    );
+
     return (
         <div>
             <IonGrid fixed className="ion-padding" >
                 <IonRow>
-                    <IonCol className="ion-text-center">
-                        <IonLabel><p>Ultima Atualização {moment(summary?.lastUpdated).format('DD/MM/YYYY h:mm:ss a')} (Fonte: DGS)</p>
-                        </IonLabel>
+                    <IonCol>
+                        <h4>Totais</h4>
                     </IonCol>
                 </IonRow>
                 <IonRow>
-                    <IonCol ><IonCard>
-                        <IonCardHeader>
-                            <IonCardTitle color="blue">
-                                {summary ? summary.confirmed : <IonSkeletonText animated />}
-                            </IonCardTitle>
-                            <IonCardSubtitle color="blue">
-                                Casos Confirmados
-                </IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard></IonCol>
-                    <IonCol> <IonCard>
-                        <IonCardHeader>
-                            <IonCardTitle color="yellow">
-                                {summary ? summary.suspects : <IonSkeletonText animated />}
-                            </IonCardTitle>
-                            <IonCardSubtitle color="yellow">
-                                Casos Suspeitos
-                </IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard></IonCol>
-                </IonRow>
-                <IonRow>
-                    <IonCol><IonCard>
-                        <IonCardHeader>
-                            <IonCardTitle color="success">
-                                {summary ? summary.recovered : <IonSkeletonText animated />}
-                            </IonCardTitle>
-                            <IonCardSubtitle color="success">
-                                Recuperados
-                </IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard></IonCol>
-                    <IonCol> <IonCard>
-                        <IonCardHeader>
-                            <IonCardTitle color="danger">
-                                {summary ? summary.deaths : <IonSkeletonText animated />}
-                            </IonCardTitle>
-                            <IonCardSubtitle color="danger">
-                                Mortes
-                        </IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard>
+                    <IonCol>
+                        {summaryCard('Confirmados', reading?.confirmed, 'blue')}
+                    </IonCol>
+                    <IonCol>
+                        {summaryCard('Suspeitos', reading?.suspect, 'yellow')}
                     </IonCol>
                 </IonRow>
                 <IonRow>
-                    <IonCol><h2>Acompanhamento</h2></IonCol>
-                </IonRow>
-                <IonRow>
-                    <IonCol><IonCard>
-                        <IonCardHeader>
-                            <IonCardTitle>
-                                {summary ? summary.waitingResults : <IonSkeletonText animated />}
-                            </IonCardTitle>
-                            <IonCardSubtitle>
-                                Aguardando Resultado
-                </IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard></IonCol>
-                    <IonCol> <IonCard>
-                        <IonCardHeader>
-                            <IonCardTitle>
-                                {summary ? summary.onWatch : <IonSkeletonText animated />}
-                            </IonCardTitle>
-                            <IonCardSubtitle>
-                                Em Vigilância
-                        </IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard>
+                    <IonCol>
+                        {summaryCard('Recuperados', reading?.recovered, 'success')}
+                    </IonCol>
+                    <IonCol>
+                        {summaryCard('Mortes', reading?.deaths, 'danger')}
                     </IonCol>
                 </IonRow>
                 <IonRow>
-                    <IonCol><h2>Internamento</h2></IonCol>
+                    <IonCol>
+                        <h4>Acompanhamento</h4>
+                    </IonCol>
                 </IonRow>
                 <IonRow>
-                    <IonCol><IonCard>
-                        <IonCardHeader>
-                            <IonCardTitle>
-                                {summary ? summary.interned : <IonSkeletonText animated />}
-                            </IonCardTitle>
-                            <IonCardSubtitle>
-                                Casos Internados
-                </IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard></IonCol>
-                    <IonCol> <IonCard>
-                        <IonCardHeader>
-                            <IonCardTitle>
-                                {summary ? summary.internedOnIcu : <IonSkeletonText animated />}
-                            </IonCardTitle>
-                            <IonCardSubtitle>
-                                Casos Internados UCI
-                        </IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard>
+                    <IonCol>
+                        {summaryCard('Aguardando', reading?.waitingLabResults)}
                     </IonCol>
+                    <IonCol>
+                        {summaryCard('Em Vigilância', reading?.onWatchCase)}
+                    </IonCol>
+                </IonRow>
+                <IonRow>
+                    <IonCol>
+                        <h4>Internamento</h4>
+                    </IonCol>
+                </IonRow>
+                <IonRow>
+                    <IonCol>
+                        {summaryCard('Internados', reading?.internedCases)}
+                    </IonCol>
+                    <IonCol>
+                        {summaryCard('Internados UCI', reading?.uciInternedCases)}
+                    </IonCol>
+                    <IonRow>
+                        <IonCol className="ion-text-center">
+                            {updating ? <IonLabel ><IonSpinner name="dots" color="primary"> </IonSpinner><p>Atualizando dados...</p></IonLabel> :
+                                <IonLabel><p>Ultima Atualização {moment(reading?.editDate).format('DD/MM/YYYY h:mm:ss a')} (Fonte: DGS)</p>
+                                </IonLabel>
+                            }
+                        </IonCol>
+                    </IonRow>
                 </IonRow>
             </IonGrid>
         </div>
