@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
 import CumulativeChart from './components/CumulativeChart';
 import ProgressiveChart from './components/ProgressiveChart';
+import ReactGA from 'react-ga';
+
 import '../summary/SummaryPage.css';
 
 const EvolutionPage: React.FC = () => {
+
+    useEffect(() => {
+        ReactGA.pageview("Evolution");
+    }, []);
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
 

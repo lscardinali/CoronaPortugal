@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonLabel, IonItem, IonGrid, IonRow, IonCol } from '@ionic/react';
+import ReactGA from 'react-ga';
 import './../Common.css'
+
 const Help: React.FC = () => {
+
+  useEffect(() => {
+    ReactGA.pageview("Help");
+  }, []);
+
   return (
     <IonPage>
       <IonHeader translucent={true}>

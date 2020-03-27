@@ -5,6 +5,7 @@ import { fetchReadings, fetchCachedReadings } from '../../services/network';
 import { Reading } from '../../models/reading';
 import './SummaryPage.css';
 import { Plugins } from '@capacitor/core';
+import ReactGA from 'react-ga';
 const { Storage } = Plugins;
 
 const SummaryPage: React.FC = () => {
@@ -15,6 +16,7 @@ const SummaryPage: React.FC = () => {
   const [showHomeScreenToast, setShowHomeScreenToast] = useState(false);
 
   useEffect(() => {
+    ReactGA.pageview("Summary");
     checkForFirstTime();
     checkForAddToHome();
     getSummary();

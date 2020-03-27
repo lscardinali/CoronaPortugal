@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCol, IonGrid, IonRow, IonProgressBar } from '@ionic/react';
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
+import ReactGA from 'react-ga';
 import '../Common.css';
 
 const NewsPage: React.FC = () => {
+
+  useEffect(() => {
+    ReactGA.pageview("News");
+  }, [])
+
   return (
     <IonPage>
       <IonHeader translucent={true}>
