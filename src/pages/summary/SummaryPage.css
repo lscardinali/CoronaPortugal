@@ -15,3 +15,7 @@ ion-card {
 ion-skeleton-text {
     height: 20px;
 }
+
+h3 {
+    margin-top: 8px;
+}

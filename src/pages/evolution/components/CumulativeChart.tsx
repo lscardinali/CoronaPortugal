@@ -69,12 +69,15 @@ const CumulativeChart: React.FC = () => {
                         type="monotone"
                         dataKey="suspect"
                         stroke="#f1c40f"
+
+                        strokeWidth="3"
                         fill="#f1c40f" />}
                     <Line
                         name="Confirmados"
                         type="monotone"
                         dataKey="confirmed"
                         stroke="#ff4961"
+                        strokeWidth="3"
                         fill="#ff4961" />
                 </LineChart>
             </ResponsiveContainer>

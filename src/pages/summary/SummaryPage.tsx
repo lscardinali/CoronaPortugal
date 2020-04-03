@@ -10,7 +10,7 @@ const { Storage } = Plugins;
 
 const SummaryPage: React.FC = () => {
 
-  const [reading, setReading] = useState<Reading>();
+  const [readings, setReadings] = useState<Reading[]>();
   const [showDataToast, setShowDataToast] = useState(false);
   const [showUpdating, setShowUpdating] = useState(false);
   const [showHomeScreenToast, setShowHomeScreenToast] = useState(false);
@@ -48,10 +48,10 @@ const SummaryPage: React.FC = () => {
     setShowUpdating(true);
     let cachedReadings = await fetchCachedReadings();
     if (cachedReadings.length > 0) {
-      setReading(cachedReadings.find(reading => reading.lastRegister === "Sim"))
+      setReadings(cachedReadings);
     }
     let readings = await fetchReadings();
-    setReading(readings.find(reading => reading.lastRegister === "Sim"));
+    setReadings(readings);
     setShowUpdating(false);
   }
 
@@ -74,11 +74,11 @@ const SummaryPage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
 
-        <SummaryCards reading={reading} updating={showUpdating} />
+        <SummaryCards lastReading={readings?.find(reading => reading.lastRegister === "Sim")} allReadings={readings} updating={showUpdating} />
         <IonToast
           isOpen={showDataToast}
           onDidDismiss={() => setShowDataToast(false)}
-          message="CoronaPT não guarda nenhuma informação pessoal e apenas usa fontes oficiais (DGS)"
+          message="CoronaPortugal não guarda nenhuma informação pessoal e apenas usa fontes oficiais (DGS)"
           buttons={[
             {
               text: 'Ok',
@@ -89,7 +89,7 @@ const SummaryPage: React.FC = () => {
         <IonToast
           isOpen={showHomeScreenToast}
           onDidDismiss={() => setShowHomeScreenToast(false)}
-          message="Estás a gostar do CoronaPT? Considere adicioná-lo á vossa Home Screen"
+          message="Estás a gostar do CoronaPortugal? Considere adicioná-lo á vossa Home Screen"
           buttons={[
             {
               text: 'Ok',

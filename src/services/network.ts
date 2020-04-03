@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { ArcgisResponse, Reading } from '../models/reading'
+import { ArcgisResponse, Reading, DgsNews } from '../models/reading'
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
 
 const arcgisUrl = "https://services.arcgis.com/CCZiGSEQbAxxFVh3/arcgis/rest/services/COVID19Portugal_view/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=datarelatorio%20asc&resultOffset=0&resultRecordCount=1000&cacheHint=true"
+const councilUrl = "https://services.arcgis.com/CCZiGSEQbAxxFVh3/arcgis/rest/services/CAOP_COVID_pontos_view2603_1/FeatureServer/0/query?f=json&where=(CasosConfirmados2603%20IS%20NOT%20NULL)%20AND%20(CasosConfirmados2703%20IS%20NOT%20NULL)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=CasosConfirmados2703%20desc&outSR=102100&resultOffset=0&resultRecordCount=381&cacheHint=true"
+const newsUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://covid19.min-saude.pt/feed/"
 
 export const fetchCachedReadings = async () => {
     const readings = await Storage.get({ key: "readings" });
@@ -13,7 +15,15 @@ export const fetchCachedReadings = async () => {
     return [];
 }
 
-export const saveReadingsToCache = (readings: Reading[]) => Storage.set({ key: "readings", value: JSON.stringify(readings) });
+export const fetchNews = async () => {
+    let response = await axios.get<DgsNews>(newsUrl);
+    return response.data;
+}
+
+export const saveReadingsToCache = (readings: Reading[]) => Storage.set({
+    key: "readings",
+    value: JSON.stringify(readings)
+});
 
 export const fetchReadings = async () => {
     const response = await axios.get<ArcgisResponse>(arcgisUrl);
@@ -60,5 +70,6 @@ export const fetchReadings = async () => {
     })
     saveReadingsToCache(readings);
     readings.sort((a, b) => a.date - b.date);
-    return readings.filter((reading, pos, array) => reading.suspect && (!pos || reading.date !== array[pos - 1].date));
+    return readings.filter((reading, pos, array) => reading.suspect &&
+        (!pos || reading.date !== array[pos - 1].date));
 }

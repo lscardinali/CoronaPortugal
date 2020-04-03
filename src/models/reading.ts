@@ -1,3 +1,18 @@
+export interface DgsNews {
+    items: DgsNewsItem[];
+}
+
+export interface DgsNewsItem {
+    title: string;
+    pubDate: Date;
+    link: string;
+    guid: string;
+    author: string;
+    thumbnail: string;
+    description: string;
+    content: string;
+}
+
 export interface ArcgisResponse {
     features: ArcgisFeature[];
 }
