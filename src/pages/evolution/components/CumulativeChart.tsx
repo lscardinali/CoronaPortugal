@@ -69,31 +69,26 @@ const CumulativeChart: React.FC = () => {
                         name="Suspeitos"
                         type="monotone"
                         dataKey="suspect"
-                        stroke="#f1c40f"
-
                         strokeWidth="3"
-                        fill="#f1c40f" />}
+                        className="suspect-line" />}
                     <Line
                         name="Confirmados"
                         type="monotone"
                         dataKey="confirmed"
-                        stroke="#ff4961"
                         strokeWidth="3"
-                        fill="#ff4961" />
+                        className="confirmed-line" />
                     <Line
                         name="Mortos"
                         type="monotone"
                         dataKey="deaths"
-                        stroke="#0000ff"
                         strokeWidth="3"
-                        fill="#00ff00" />
+                        className="deaths-line" />
                     <Line
                         name="Recuperados"
                         type="monotone"
                         dataKey="recovered"
-                        stroke="#00ff00"
                         strokeWidth="3"
-                        fill="#00ff00" />
+                        className="recuperated-line" />
                 </LineChart>
             </ResponsiveContainer>
             <IonItem style={{ paddingTop: 16 }} >
