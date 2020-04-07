@@ -299,3 +299,60 @@ ion-item.menu {
 .menu.selected {
   --background: rgba(var(--ion-color-primary-rgb), 0.14);
 }
+
+/* evolution lines */ 
+.recuperated-line path {
+  stroke: var(--ion-color-success);
+}
+
+.recuperated-line .recharts-line-dots circle {
+  stroke: var(--ion-color-success);
+  fill: var(--ion-color-success);
+}
+
+/* TODO remove this hack for a better way of setting the colors in the legend of the graph */
+.legend-item-3 svg path {
+  stroke: var(--ion-color-success);
+}
+
+.deaths-line path {
+  stroke: var(--ion-color-primary);
+}
+
+.deaths-line .recharts-line-dots circle {
+  stroke: var(--ion-color-primary);
+  fill: var(--ion-color-primary);
+}
+
+/* TODO remove this hack for a better way of setting the colors in the legend of the graph */
+.legend-item-2 svg path {
+  stroke: var(--ion-color-primary);
+}
+
+.confirmed-line path {
+  stroke: var(--ion-color-blue);
+}
+
+.confirmed-line .recharts-line-dots circle {
+  stroke: var(--ion-color-blue);
+  fill: var(--ion-color-blue);
+}
+
+/* TODO remove this hack for a better way of setting the colors in the legend of the graph */
+.legend-item-1 svg path {
+  stroke: var(--ion-color-blue);
+}
+
+.suspect-line path {
+  stroke: var(--ion-color-warning);
+}
+
+.suspect-line .recharts-line-dots circle {
+  stroke: var(--ion-color-warning);
+  fill: var(--ion-color-warning);
+}
+
+/* TODO remove this hack for a better way of setting the colors in the legend of the graph */
+.legend-item-0 svg path {
+  stroke: var(--ion-color-warning);
+}
