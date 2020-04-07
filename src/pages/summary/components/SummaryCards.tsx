@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, IonGrid, IonRow, IonCol, IonLabel, IonSkeletonText, IonSpinner } from '@ionic/react';
+import { IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, IonGrid, IonRow, IonCol, IonLabel, IonSpinner } from '@ionic/react';
 import moment from 'moment';
 import { Reading } from '../../../models/reading';
 
