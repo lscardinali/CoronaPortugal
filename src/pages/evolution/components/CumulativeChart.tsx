@@ -64,21 +64,31 @@ const CumulativeChart: React.FC = () => {
                         labelFormatter={time => moment(time).format('DD/MM')}
                         labelStyle={{ color: darkMode ? "white" : "black" }}
                         contentStyle={darkMode ? { backgroundColor: "#111111", borderColor: "#222222" } : undefined} />
-                    {showSuspect && <Line
+                    {showSuspect && 
+                    <Line
                         name="Suspeitos"
                         type="monotone"
                         dataKey="suspect"
-                        stroke="#f1c40f"
-
                         strokeWidth="3"
-                        fill="#f1c40f" />}
+                        className="suspect-line" />}
                     <Line
                         name="Confirmados"
                         type="monotone"
                         dataKey="confirmed"
-                        stroke="#ff4961"
                         strokeWidth="3"
-                        fill="#ff4961" />
+                        className="confirmed-line" />
+                    <Line
+                        name="Mortos"
+                        type="monotone"
+                        dataKey="deaths"
+                        strokeWidth="3"
+                        className="deaths-line" />
+                    <Line
+                        name="Recuperados"
+                        type="monotone"
+                        dataKey="recovered"
+                        strokeWidth="3"
+                        className="recuperated-line" />
                 </LineChart>
             </ResponsiveContainer>
             <IonItem style={{ paddingTop: 16 }} >
