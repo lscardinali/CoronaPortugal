@@ -49,6 +49,7 @@ const ProgressiveChart: React.FC = () => {
                     data={readings.slice(dateLowerRange, dateUpperRange + 1)}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <XAxis
+                        scale="log"
                         dataKey="date"
                         tickFormatter={time => moment(time).format('DD/MM')}
                         domain={['dataMin', 'dataMax']} />
@@ -59,7 +60,7 @@ const ProgressiveChart: React.FC = () => {
                         contentStyle={darkMode ? { backgroundColor: "#111111", borderColor: "#222222" } : undefined} />
                     <Bar name="Confirmados"
                         dataKey="newCases"
-                        fill="#ff4961" />
+                        fill="#3880ff" />
                 </BarChart>
             </ResponsiveContainer>
             <IonItem lines="none" style={{ paddingTop: 16 }}>

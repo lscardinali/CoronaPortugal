@@ -51,6 +51,7 @@ const CumulativeChart: React.FC = () => {
                     data={readings.slice(dateLowerRange, dateUpperRange + 1)}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <XAxis
+                        scale="log"
                         dataKey="date"
                         type="number"
                         tickFormatter={time => moment(time).format('DD/MM')}
@@ -64,13 +65,13 @@ const CumulativeChart: React.FC = () => {
                         labelFormatter={time => moment(time).format('DD/MM')}
                         labelStyle={{ color: darkMode ? "white" : "black" }}
                         contentStyle={darkMode ? { backgroundColor: "#111111", borderColor: "#222222" } : undefined} />
-                    {showSuspect && 
-                    <Line
-                        name="Suspeitos"
-                        type="monotone"
-                        dataKey="suspect"
-                        strokeWidth="3"
-                        className="suspect-line" />}
+                    {showSuspect &&
+                        <Line
+                            name="Suspeitos"
+                            type="monotone"
+                            dataKey="suspect"
+                            strokeWidth="3"
+                            className="suspect-line" />}
                     <Line
                         name="Confirmados"
                         type="monotone"
