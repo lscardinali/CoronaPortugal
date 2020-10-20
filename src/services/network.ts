@@ -10,6 +10,9 @@ export const fetchCachedReadings = () => Storage.get({ key: "readings" }).then((
 
 export const fetchNews = async () => (await axios.get<DgsNews>(newsUrl)).data;
 
+export const didVisitNews = async () => (await Storage.get({ key: "didVisitNews" })).value !== null;
+export const setDidVisitNews = () => Storage.set({ key: "didVisitNews", value: "true" });
+
 export const saveReadingsToCache = (readings: Reading[]) => Storage.set({
     key: "readings",
     value: JSON.stringify(readings)
