@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast, IonRefresher, IonRefresherContent, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonAvatar, IonItem, IonLabel, IonButton, IonCol, IonGrid, IonRow, IonIcon, IonSpinner, IonAlert } from '@ionic/react';
-import { fetchReadings, fetchCachedReadings, didVisitNews } from '../../services/network';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast, IonRefresher, IonRefresherContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonLabel, IonButton, IonCol, IonGrid, IonRow, IonIcon, IonSpinner, IonAlert } from '@ionic/react';
+import { fetchReadings, fetchCachedReadings } from '../../services/network';
 import { Reading } from '../../models/reading';
 import './SummaryPage.css';
 import { Plugins } from '@capacitor/core';
@@ -11,7 +11,7 @@ const { Storage, Clipboard } = Plugins;
 
 const SummaryPage: React.FC = () => {
 
-  const [readings, setReadings] = useState<Reading[]>();
+  //const [readings, setReadings] = useState<Reading[]>();
   const [lastReading, setLastReading] = useState<Reading>();
   const [showDataToast, setShowDataToast] = useState(false);
   const [showUpdating, setShowUpdating] = useState(false);
@@ -55,11 +55,11 @@ const SummaryPage: React.FC = () => {
     setShowUpdating(true);
     let cachedReadings = await fetchCachedReadings();
     if (cachedReadings.length > 0) {
-      setReadings(cachedReadings);
+      //setReadings(cachedReadings);
       setLastReading(cachedReadings[cachedReadings.length - 1])
     }
     let readings = await fetchReadings();
-    setReadings(readings);
+    //setReadings(readings);
     setLastReading(readings[readings.length - 1])
     setShowUpdating(false);
   }
