@@ -73,7 +73,7 @@ const SummaryPage: React.FC = () => {
         <IonCardHeader mode="ios">
           <IonCardTitle color={color}>
             {value && (isPercent ? value.toLocaleString() + ' %' : value.toLocaleString())}
-            <p style={{ marginBlockStart: "0.2em", fontSize: 12 }}>{newValue && '+' + newValue.toLocaleString()}</p>
+            <p style={{ marginBlockStart: "0.2em", fontSize: 12 }}>{newValue && (newValue.toString().indexOf('-') !== -1 ? '' : '+') + newValue.toLocaleString()}</p>
           </IonCardTitle>
           <IonCardSubtitle color={color} mode="ios">
             {title}
