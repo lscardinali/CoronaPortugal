@@ -17,7 +17,7 @@ const EvolutionPage: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen={true}>
-                <IonHeader collapse="condense" translucent={true}>
+                <IonHeader collapse="condense">
                     <IonToolbar>
                         <IonTitle size="large">Evolução</IonTitle>
                     </IonToolbar>

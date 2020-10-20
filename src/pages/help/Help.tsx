@@ -17,13 +17,13 @@ const Help: React.FC = () => {
           <IonTitle>Ajuda</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen={true}>
-        <IonHeader collapse="condense" translucent={true}>
+      <IonContent fullscreen={true} className="ion-padding">
+        <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Ajuda</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonGrid fixed className="ion-padding">
+        <IonGrid fixed>
           <IonRow>
             <IonCol>
               <IonCard>

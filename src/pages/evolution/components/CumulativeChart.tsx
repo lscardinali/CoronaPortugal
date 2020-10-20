@@ -47,8 +47,8 @@ const CumulativeChart: React.FC = () => {
     }, [])
 
     const chart = (
-        <div>
-            <div style={{ width: "100%", height: "500px" }}>
+        <IonList className="rounded-list ion-margin" lines="none"> 
+            <div style={{ width: "100%", height: 500 }}>
                 <ResponsiveContainer>
                     <LineChart
                         data={readings.slice(dateLowerRange, dateUpperRange + 1)}
@@ -97,8 +97,8 @@ const CumulativeChart: React.FC = () => {
                                 fill="var(--ion-color-danger)" />}
                     </LineChart>
                 </ResponsiveContainer>
-            </div>
-            <IonList className="rounded-list ion-margin" lines="none">
+                            </div>
+            
                 <IonItem lines="full">
                     {readings && <IonRange
                         dualKnobs={true}
@@ -134,7 +134,6 @@ const CumulativeChart: React.FC = () => {
                     <IonToggle color="danger" checked={showDeaths} onIonChange={e => setShowDeaths(e.detail.checked)} />
                 </IonItem>
             </IonList>
-        </div>
     );
 
     if (showError) {
