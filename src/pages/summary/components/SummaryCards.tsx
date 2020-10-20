@@ -38,7 +38,7 @@ const SummaryCards: React.FC<SummaryCardProps> = ({ reading, updating }) => {
                             <p>Atualizando dados...</p>
                         </IonLabel>
                         : <IonLabel>
-                            <p>Atualizado em {moment(reading?.editDate).format('DD/MM/YYYY h:mm:ss a')} (Fonte: DGS)</p>
+                            <p>Atualizado em {moment(reading?.date).format('DD/MM/YYYY h:mm:ss a')} (Fonte: DGS)</p>
                         </IonLabel>
                     }
                 </IonCol>
