@@ -56,8 +56,7 @@ const SummaryPage: React.FC = () => {
   }
 
   return (
-    <IonPage id="summary-page">
-
+    <IonPage>
       <IonHeader translucent={true}>
         <IonToolbar>
           <IonTitle>Sumário</IonTitle>
@@ -68,17 +67,16 @@ const SummaryPage: React.FC = () => {
           <IonRefresherContent>
           </IonRefresherContent>
         </IonRefresher>
-        <IonHeader collapse="condense" translucent={true}>
+        <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Sumário</IonTitle>
           </IonToolbar>
         </IonHeader>
-
-        <SummaryCards lastReading={readings?.find(reading => reading.lastRegister === "Sim")} allReadings={readings} updating={showUpdating} />
+        <SummaryCards reading={readings?.slice(-1).pop()} updating={showUpdating} />
         <IonToast
           isOpen={showDataToast}
           onDidDismiss={() => setShowDataToast(false)}
-          message="CoronaPortugal não guarda nenhuma informação pessoal e apenas usa fontes oficiais (DGS)"
+          message="CoronaPT não guarda nenhuma informação pessoal e apenas usa fontes oficiais (DGS)"
           buttons={[
             {
               text: 'Ok',
@@ -89,7 +87,7 @@ const SummaryPage: React.FC = () => {
         <IonToast
           isOpen={showHomeScreenToast}
           onDidDismiss={() => setShowHomeScreenToast(false)}
-          message="Estás a gostar do CoronaPortugal? Considere adicioná-lo á vossa Home Screen"
+          message="Estás a gostar do CoronaPT? Considere adicioná-lo á vossa Home Screen"
           buttons={[
             {
               text: 'Ok',

@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
+  IonContent,
   IonIcon,
   IonLabel,
   IonRouterOutlet,
+  IonSplitPane,
   IonTabBar,
   IonTabButton,
   IonTabs
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { helpBuoy, barChartOutline, newspaper, albums, helpBuoyOutline, newspaperOutline, albumsOutline, barChart } from 'ionicons/icons';
+import { appPages } from './models/app-navigation';
 import SummaryPage from './pages/summary/SummaryPage';
 import EvolutionPage from './pages/evolution/EvolutionPage';
 import NewsPage from './pages/news/NewsPage';
@@ -34,54 +36,41 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Menu from './pages/Menu';
 
 const App: React.FC = () => {
 
   const [selectedTab, setSelectedTab] = useState<string>('summary');
 
-  return (<IonApp>
-    <IonReactRouter>
-      {/* <IonSplitPane contentId="main"> */}
-      <IonTabs onIonTabsDidChange={(event) => setSelectedTab(event.detail.tab)} >
-        {/* <IonMenu contentId="main" className="ion-hide-md-down" >
-            <IonList className="ion-padding" >
-              <IonListHeader style={{ fontSize: "22px", fontWeight: 600 }} >
-                CoronaPT
-            </IonListHeader>
-              <IonItem lines="none" button className="menu selected"><IonIcon icon={albums} slot="start" ></IonIcon> <IonLabel>Sumário</IonLabel></IonItem>
-              <IonItem lines="none" button className="menu"><IonIcon icon={albums} slot="start" ></IonIcon> Menu Item 2</IonItem>
-            </IonList>
-          </IonMenu> */}
-
-        <IonRouterOutlet id="main">
-          <Route path="/summary" component={SummaryPage} exact={true} />
-          <Route path="/news" component={NewsPage} exact={true} />
-          <Route path="/help" component={Help} />
-          <Route path="/evolution" component={EvolutionPage} />
-          <Route path="/" render={() => <Redirect to="/summary" />} exact={true} />
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom" translucent={true}>
-          <IonTabButton tab="summary" href="/summary">
-            <IonIcon icon={selectedTab === 'summary' ? albums : albumsOutline} />
-            <IonLabel>Sumário</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="news" href="/news">
-            <IonIcon icon={selectedTab === 'news' ? newspaper : newspaperOutline} />
-            <IonLabel>Notícias</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="evolution" href="/evolution">
-            <IonIcon icon={selectedTab === 'evolution' ? barChart : barChartOutline} />
-            <IonLabel>Evolução</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="help" href="/help">
-            <IonIcon icon={selectedTab === 'help' ? helpBuoy : helpBuoyOutline} />
-            <IonLabel>Ajuda</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-      {/* </IonSplitPane> */}
-    </IonReactRouter>
-  </IonApp>
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonSplitPane contentId="main">
+          <Menu />
+          <IonContent id="main">
+            <IonTabs onIonTabsDidChange={(event) => setSelectedTab(event.detail.tab)}>
+              <IonRouterOutlet id="main">
+                <Route path="/summary" component={SummaryPage} exact={true} />
+                <Route path="/news" component={NewsPage} exact={true} />
+                <Route path="/help" component={Help} />
+                <Route path="/evolution" component={EvolutionPage} />
+                <Route path="/" render={() => <Redirect to="/summary" />} exact={true} />
+              </IonRouterOutlet>
+              <IonTabBar translucent={true} slot="bottom" class="ion-hide-lg-up"  >
+                {appPages.map((appPage) => {
+                  return (
+                    <IonTabButton tab={appPage.id} href={appPage.url} key={appPage.id}>
+                      <IonIcon ios={(selectedTab === appPage.id) ? appPage.iosSelectedIcon : appPage.iosIcon} md={appPage.mdIcon} />
+                      <IonLabel>{appPage.title}</IonLabel>
+                    </IonTabButton>
+                  );
+                })}
+              </IonTabBar>
+            </IonTabs>
+          </IonContent>
+        </IonSplitPane>
+      </IonReactRouter>
+    </IonApp>
   );
 }
 

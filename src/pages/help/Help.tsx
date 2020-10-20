@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonLabel, IonItem, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonButton, IonIcon } from '@ionic/react';
 import ReactGA from 'react-ga';
 import './../Common.css'
+import { logoAppleAppstore, logoGooglePlaystore } from 'ionicons/icons';
 
 const Help: React.FC = () => {
 
@@ -26,12 +27,39 @@ const Help: React.FC = () => {
           <IonRow>
             <IonCol>
               <IonCard>
+                <img src="assets/stayaway.jpg" alt="Imagem do App Stayaway Covid" />
+                <IonCardHeader>
+                  <IonCardTitle>STAYAWAY COVID</IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  Descarregue a App STAYWAY COVID e ajude a mapear a situação do COVID em Portugal e seja avisado se foi exposto à pessoas com COVID.
+                  <IonGrid class="ion-no-padding ion-padding-top">
+                    <IonRow>
+                      <IonCol>
+                        <IonButton color="blue" expand="block" href="https://apps.apple.com/pt/app/stayaway-covid/id1519479652?l=en" target="_blank">
+                          <IonIcon icon={logoAppleAppstore} slot="start"></IonIcon> App Store
+                        </IonButton>
+                      </IonCol>
+                      <IonCol>
+                        <IonButton color="success" expand="block" href="https://play.google.com/store/apps/details?id=fct.inesctec.stayaway" target="_blank">
+                          <IonIcon icon={logoGooglePlaystore} slot="start"></IonIcon>Play Store
+                        </IonButton>
+                      </IonCol>
+                    </IonRow>
+                  </IonGrid>
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonCard>
                 <IonCardHeader>
                   <IonCardTitle><a href="tel:808242424" style={{ textDecoration: "none" }}>808 24 24 24</a></IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
                   Se estiver com sintomas e para tirar dúvidas específicas, ligue ao SNS 24
-                        </IonCardContent>
+                </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
@@ -43,81 +71,8 @@ const Help: React.FC = () => {
                 </IonCardHeader>
                 <IonCardContent>
                   Se tiver sintomas e estiver no norte de Portugal, ligue para linha da Administração Regional de Saúde
-                        </IonCardContent>
-              </IonCard>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>Sintomas</IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  Os seguintes sintomas podem ser indicativos do COVID-19
-                            <IonList>
-                    <IonItem>
-                      <IonLabel>
-                        Tosse
-                                    </IonLabel>
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel>
-                        Febre
-                                    </IonLabel>
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel>
-                        Dificuldade Respiratória
-                                    </IonLabel>
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel>
-                        Cefaléia
-                                    </IonLabel>
-                    </IonItem>
-                  </IonList>
                 </IonCardContent>
               </IonCard>
-            </IonCol>
-            <IonCol>
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>Como se prevenir?</IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  A prevenção é a melhor contribuição que podemos fazer a todos
-                            <IonList>
-                    <IonItem>
-                      <IonLabel>
-                        Distânciamento Social
-                      </IonLabel>
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel>
-                        Tapar o nariz e boca quando espirrar ou tossir
-                                    </IonLabel>
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel>
-                        Lavar frequentemente as mãos com água e sabão
-                                    </IonLabel>
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel>
-                        Evitar contacto próximo com doentes
-                                    </IonLabel>
-                    </IonItem>
-                  </IonList>
-                </IonCardContent>
-              </IonCard>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              <IonLabel>
-                <p>Esta área encontra-se em construção. Mais tópicos serão adicionados em breve</p>
-              </IonLabel>
             </IonCol>
           </IonRow>
         </IonGrid>

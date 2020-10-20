@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { ResponsiveContainer, XAxis, YAxis, Legend, Tooltip, LineChart, Line } from 'recharts';
 import moment from 'moment';
 import { fetchReadings, fetchCachedReadings } from '../../../services/network';
-import { IonSpinner, IonLabel, IonButton, IonItem, IonToggle, IonRange } from '@ionic/react';
-import './center.css';
+import { IonSpinner, IonLabel, IonButton, IonItem, IonToggle, IonRange, IonList } from '@ionic/react';
+import '../../Common.css';
 import { Reading } from '../../../models/reading';
 
-// FIXME: Refactor both screens and data to only one with different charts
 const CumulativeChart: React.FC = () => {
-    const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+    const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const [dateLowerRange, setDateLowerRange] = useState<number>(0);
     const [dateUpperRange, setDateUpperRange] = useState<number>(0);
     const [readings, setReadings] = useState<Reading[]>([])
-    const [showSuspect, setShowSuspect] = useState<boolean>(true)
+    const [showRecovered, setShowRecovered] = useState<boolean>(true);
+    const [showActive, setShowActive] = useState<boolean>(true);
+    const [showConfirmed, setShowConfirmed] = useState<boolean>(true);
+    const [showDeaths, setShowDeaths] = useState<boolean>(true);
     const [showLoading, setShowLoading] = useState<boolean>(false);
     const [showError, setShowError] = useState<boolean>(false);
 
@@ -27,17 +29,17 @@ const CumulativeChart: React.FC = () => {
         }
 
         try {
-            let readings = await fetchReadings();
 
+            let readings = await fetchReadings();
             setReadings(readings);
             setShowLoading(false);
-
+            setDateLowerRange(readings.length - 90)
             setDateUpperRange(readings.length - 1)
         } catch {
+
             setShowError(true);
         }
         setShowLoading(false);
-
     }
 
     useEffect(() => {
@@ -45,78 +47,95 @@ const CumulativeChart: React.FC = () => {
     }, [])
 
     const chart = (
-        <div style={{ width: "100%", height: "70%" }}>
-            <ResponsiveContainer>
-                <LineChart
-                    data={readings.slice(dateLowerRange, dateUpperRange + 1)}
-                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                    <XAxis
-                        scale="log"
-                        dataKey="date"
-                        type="number"
-                        tickFormatter={time => moment(time).format('DD/MM')}
-                        tickCount={30}
-                        domain={['dataMin', 'dataMax']} />
-                    <YAxis />
-                    <Legend
-                        verticalAlign="top"
-                        height={36} />
-                    <Tooltip
-                        labelFormatter={time => moment(time).format('DD/MM')}
-                        labelStyle={{ color: darkMode ? "white" : "black" }}
-                        contentStyle={darkMode ? { backgroundColor: "#111111", borderColor: "#222222" } : undefined} />
-                    {showSuspect &&
-                        <Line
-                            name="Suspeitos"
-                            type="monotone"
-                            dataKey="suspect"
-                            strokeWidth="3"
-                            className="suspect-line" />}
-                    <Line
-                        name="Confirmados"
-                        type="monotone"
-                        dataKey="confirmed"
-                        strokeWidth="3"
-                        className="confirmed-line" />
-                    <Line
-                        name="Mortos"
-                        type="monotone"
-                        dataKey="deaths"
-                        strokeWidth="3"
-                        className="deaths-line" />
-                    <Line
-                        name="Recuperados"
-                        type="monotone"
-                        dataKey="recovered"
-                        strokeWidth="3"
-                        className="recuperated-line" />
-                </LineChart>
-            </ResponsiveContainer>
-            <IonItem style={{ paddingTop: 16 }} >
-                {readings && <IonRange
-                    dualKnobs={true}
-                    min={0}
-                    max={readings.length - 1}
-                    step={1}
-                    snaps={true}
-                    ticks={false}
-                    value={{ lower: dateLowerRange, upper: dateUpperRange }}
-                    onIonChange={e => {
-                        const values = e.detail.value as { lower: number, upper: number };
-                        setDateLowerRange(values.lower);
-                        setDateUpperRange(values.upper)
-                    }}>
-                    <IonLabel slot="start">{readings && readings.length > 0 && moment(readings[dateLowerRange].date).format('DD/MM')}</IonLabel>
-                    <IonLabel slot="end">{readings && readings.length > dateUpperRange && moment(readings[dateUpperRange].date).format('DD/MM')}</IonLabel>
-                </IonRange>}
-            </IonItem>
-            <IonItem lines="none">
-                <IonLabel>Mostrar casos suspeitos</IonLabel>
-                <IonToggle checked={showSuspect} onIonChange={e => setShowSuspect(e.detail.checked)} />
-            </IonItem>
+        <div>
+            <div style={{ width: "100%", height: "500px" }}>
+                <ResponsiveContainer>
+                    <LineChart
+                        data={readings.slice(dateLowerRange, dateUpperRange + 1)}
+                        margin={{ top: 20, right: 30, left: 20, bottom: 0 }}>
+                        <XAxis
+                            scale="log"
+                            dataKey="date"
+                            type="number"
+                            tickFormatter={time => moment(time).format('DD/MM')}
+                            domain={['dataMin', 'dataMax']}
+                        />
+                        <YAxis
+                            tickFormatter={number => number.toLocaleString()}
+                        />
+                        <Legend verticalAlign="bottom" />
+                        <Tooltip
+                            labelFormatter={time => moment(time).format('DD/MM')}
+                            labelStyle={{ color: darkMode ? "white" : "black" }}
+                            formatter={number => number.toLocaleString()}
+                            contentStyle={darkMode ?
+                                { backgroundColor: "#111111", borderColor: "#222222" } :
+                                { backgroundColor: "#f2f2f2", borderColor: "#b0b0b0" }} />
+                        {showActive &&
+                            <Line
+                                stroke="var(--ion-color-warning)"
+                                fill="var(--ion-color-warning)"
+                                name="Activos"
+                                dataKey="active" />}
+                        {showRecovered &&
+                            <Line
+                                name="Recuperados"
+                                dataKey="recovered"
+                                stroke="var(--ion-color-success)"
+                                fill="var(--ion-color-success)" />}
+                        {showConfirmed &&
+                            <Line
+                                name="Confirmados"
+                                dataKey="confirmed"
+                                stroke="var(--ion-color-blue)"
+                                fill="var(--ion-color-blue)" />}
+                        {showDeaths &&
+                            <Line
+                                name="Mortos"
+                                dataKey="deaths"
+                                stroke="var(--ion-color-danger)"
+                                fill="var(--ion-color-danger)" />}
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
+            <IonList className="rounded-list ion-margin" lines="none">
+                <IonItem lines="full">
+                    {readings && <IonRange
+                        dualKnobs={true}
+                        min={0}
+                        max={readings.length - 1}
+                        step={1}
+                        snaps={true}
+                        ticks={false}
+                        value={{ lower: dateLowerRange, upper: dateUpperRange }}
+                        onIonChange={e => {
+                            const values = e.detail.value as { lower: number, upper: number };
+                            setDateLowerRange(values.lower);
+                            setDateUpperRange(values.upper)
+                        }}>
+                        <IonLabel slot="start">{readings && readings.length > 0 && moment(readings[dateLowerRange].date).format('DD/MM')}</IonLabel>
+                        <IonLabel slot="end">{readings && readings.length > dateUpperRange && moment(readings[dateUpperRange].date).format('DD/MM')}</IonLabel>
+                    </IonRange>}
+                </IonItem>
+                <IonItem>
+                    <IonLabel>Activos</IonLabel>
+                    <IonToggle color="warning" checked={showActive} onIonChange={e => setShowActive(e.detail.checked)} />
+                </IonItem>
+                <IonItem>
+                    <IonLabel>Recuperados</IonLabel>
+                    <IonToggle color="success" checked={showRecovered} onIonChange={e => setShowRecovered(e.detail.checked)} />
+                </IonItem>
+                <IonItem>
+                    <IonLabel>Confirmados</IonLabel>
+                    <IonToggle color="blue" checked={showConfirmed} onIonChange={e => setShowConfirmed(e.detail.checked)} />
+                </IonItem>
+                <IonItem>
+                    <IonLabel>Óbitos</IonLabel>
+                    <IonToggle color="danger" checked={showDeaths} onIonChange={e => setShowDeaths(e.detail.checked)} />
+                </IonItem>
+            </IonList>
         </div>
     );
-
 
     if (showError) {
         return <div className="center-container">

@@ -4,12 +4,12 @@ http://ionicframework.com/docs/theming/ */
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary: #5260ff;
+  --ion-color-primary-rgb: 82, 96, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #4854e0;
+  --ion-color-primary-tint: #6370ff;
 
   /** secondary **/
   --ion-color-secondary: #eb445a;
@@ -125,6 +125,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-tint: var(--ion-color-yellow-tint);
 }
 
+
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
@@ -132,12 +133,12 @@ http://ionicframework.com/docs/theming/ */
    */
 
   body {
-    --ion-color-primary: #428cff;
-    --ion-color-primary-rgb: 66,140,255;
+    --ion-color-primary: #6a64ff;
+    --ion-color-primary-rgb: 106,100,255;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-contrast-rgb: 255,255,255;
-    --ion-color-primary-shade: #3a7be0;
-    --ion-color-primary-tint: #5598ff;
+    --ion-color-primary-shade: #5d58e0;
+    --ion-color-primary-tint: #7974ff;
 
     --ion-color-secondary: #50c8ff;
     --ion-color-secondary-rgb: 80,200,255;
@@ -275,84 +276,30 @@ http://ionicframework.com/docs/theming/ */
   ion-title.title-large {
     --color: white;
   }
-
-
 }
 
-.ios .segment-margin {
-  padding: 16px;
+
+ion-toolbar.toolbar-title-large {
+  --border-width: 0 !important;
 }
 
-/* @media screen and (min-width: 992px) {
-  ion-tab-bar { display: none; }
-} */
 
-ion-item.menu {
-  --background-activated: var(--ion-color-primary);
-  --background-hover: var(--ion-color-primary);
-  --border-radius: 4px;
-  --color-activated:  var(--ion-color-primary);
-  --detail-icon-color:   var(--ion-color-primary);
-  --ripple-color:   var(--ion-color-primary);
+ion-content.ios  {
+  --background: var(--ion-color-step-50, #f2f2f2)
 }
 
-.menu.selected {
-  --background: rgba(var(--ion-color-primary-rgb), 0.14);
+ion-content.ios  {
+  --background: var(--ion-color-step-50, #f2f2f2)
 }
 
-/* evolution lines */ 
-.recuperated-line path {
-  stroke: var(--ion-color-success);
+ion-toolbar.toolbar-title-large.ios  {
+  --background: var(--ion-color-step-50, #f2f2f2)
 }
 
-.recuperated-line .recharts-line-dots circle {
-  stroke: var(--ion-color-success);
-  fill: var(--ion-color-success);
+ion-toolbar.md {
+  --background: var(--ion-color-primary-shade)
 }
 
-/* TODO remove this hack for a better way of setting the colors in the legend of the graph */
-.legend-item-3 svg path {
-  stroke: var(--ion-color-success);
-}
-
-.deaths-line path {
-  stroke: var(--ion-color-danger);
-}
-
-.deaths-line .recharts-line-dots circle {
-  stroke: var(--ion-color-danger);
-  fill: var(--ion-color-danger);
-}
-
-/* TODO remove this hack for a better way of setting the colors in the legend of the graph */
-.legend-item-2 svg path {
-  stroke: var(--ion-color-danger);
-}
-
-.confirmed-line path {
-  stroke: var(--ion-color-blue);
-}
-
-.confirmed-line .recharts-line-dots circle {
-  stroke: var(--ion-color-blue);
-  fill: var(--ion-color-blue);
-}
-
-/* TODO remove this hack for a better way of setting the colors in the legend of the graph */
-.legend-item-1 svg path {
-  stroke: var(--ion-color-blue);
-}
-
-.suspect-line path {
-  stroke: var(--ion-color-warning);
-}
-
-.suspect-line .recharts-line-dots circle {
-  stroke: var(--ion-color-warning);
-  fill: var(--ion-color-warning);
-}
-
-/* TODO remove this hack for a better way of setting the colors in the legend of the graph */
-.legend-item-0 svg path {
-  stroke: var(--ion-color-warning);
+ion-title.md {
+  --color: white;
 }

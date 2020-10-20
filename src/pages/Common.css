@@ -1,13 +1,9 @@
-ion-content ion-toolbar {
-  --background: translucent;
-}
-
 ion-grid {
   --ion-grid-width-xs: 100%;
---ion-grid-width-sm: 540px;
---ion-grid-width-md: 540px;
---ion-grid-width-lg: 540px;
---ion-grid-width-xl: 540px;
+  --ion-grid-width-sm: 540px;
+  --ion-grid-width-md: 540px;
+  --ion-grid-width-lg: 540px;
+  --ion-grid-width-xl: 540px;
 }
 
 ion-card {
@@ -17,4 +13,24 @@ ion-card {
 
 ion-skeleton-text {
   height: 20px;
+}
+
+.md .no-md-padding {
+  padding: 0
+}
+
+.ios .rounded-list {
+  border-radius: 10px;
+  -webkit-transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+  margin: 8px;
+}
+
+.center-container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
