@@ -33,7 +33,7 @@ const CumulativeChart: React.FC = () => {
             let readings = await fetchReadings();
             setReadings(readings);
             setShowLoading(false);
-            setDateLowerRange(readings.length - 90)
+            setDateLowerRange(readings.length - 30)
             setDateUpperRange(readings.length - 1)
         } catch {
 
@@ -47,7 +47,7 @@ const CumulativeChart: React.FC = () => {
     }, [])
 
     const chart = (
-        <IonList className="rounded-list ion-margin" lines="none"> 
+        <IonList className="rounded-list ion-margin" lines="none">
             <div style={{ width: "100%", height: 500 }}>
                 <ResponsiveContainer>
                     <LineChart
@@ -97,43 +97,43 @@ const CumulativeChart: React.FC = () => {
                                 fill="var(--ion-color-danger)" />}
                     </LineChart>
                 </ResponsiveContainer>
-                            </div>
-            
-                <IonItem lines="full">
-                    {readings && <IonRange
-                        dualKnobs={true}
-                        min={0}
-                        max={readings.length - 1}
-                        step={1}
-                        snaps={true}
-                        ticks={false}
-                        value={{ lower: dateLowerRange, upper: dateUpperRange }}
-                        onIonChange={e => {
-                            const values = e.detail.value as { lower: number, upper: number };
-                            setDateLowerRange(values.lower);
-                            setDateUpperRange(values.upper)
-                        }}>
-                        <IonLabel slot="start">{readings && readings.length > 0 && moment(readings[dateLowerRange].date).format('DD/MM')}</IonLabel>
-                        <IonLabel slot="end">{readings && readings.length > dateUpperRange && moment(readings[dateUpperRange].date).format('DD/MM')}</IonLabel>
-                    </IonRange>}
-                </IonItem>
-                <IonItem>
-                    <IonLabel>Activos</IonLabel>
-                    <IonToggle color="warning" checked={showActive} onIonChange={e => setShowActive(e.detail.checked)} />
-                </IonItem>
-                <IonItem>
-                    <IonLabel>Recuperados</IonLabel>
-                    <IonToggle color="success" checked={showRecovered} onIonChange={e => setShowRecovered(e.detail.checked)} />
-                </IonItem>
-                <IonItem>
-                    <IonLabel>Confirmados</IonLabel>
-                    <IonToggle color="blue" checked={showConfirmed} onIonChange={e => setShowConfirmed(e.detail.checked)} />
-                </IonItem>
-                <IonItem>
-                    <IonLabel>Óbitos</IonLabel>
-                    <IonToggle color="danger" checked={showDeaths} onIonChange={e => setShowDeaths(e.detail.checked)} />
-                </IonItem>
-            </IonList>
+            </div>
+
+            <IonItem lines="full">
+                {readings && <IonRange
+                    dualKnobs={true}
+                    min={0}
+                    max={readings.length - 1}
+                    step={1}
+                    snaps={true}
+                    ticks={false}
+                    value={{ lower: dateLowerRange, upper: dateUpperRange }}
+                    onIonChange={e => {
+                        const values = e.detail.value as { lower: number, upper: number };
+                        setDateLowerRange(values.lower);
+                        setDateUpperRange(values.upper)
+                    }}>
+                    <IonLabel slot="start">{readings && readings.length > 0 && moment(readings[dateLowerRange].date).format('DD/MM')}</IonLabel>
+                    <IonLabel slot="end">{readings && readings.length > dateUpperRange && moment(readings[dateUpperRange].date).format('DD/MM')}</IonLabel>
+                </IonRange>}
+            </IonItem>
+            <IonItem>
+                <IonLabel>Activos</IonLabel>
+                <IonToggle color="warning" checked={showActive} onIonChange={e => setShowActive(e.detail.checked)} />
+            </IonItem>
+            <IonItem>
+                <IonLabel>Recuperados</IonLabel>
+                <IonToggle color="success" checked={showRecovered} onIonChange={e => setShowRecovered(e.detail.checked)} />
+            </IonItem>
+            <IonItem>
+                <IonLabel>Confirmados</IonLabel>
+                <IonToggle color="blue" checked={showConfirmed} onIonChange={e => setShowConfirmed(e.detail.checked)} />
+            </IonItem>
+            <IonItem>
+                <IonLabel>Óbitos</IonLabel>
+                <IonToggle color="danger" checked={showDeaths} onIonChange={e => setShowDeaths(e.detail.checked)} />
+            </IonItem>
+        </IonList>
     );
 
     if (showError) {
