@@ -19,11 +19,21 @@ const SummaryPage: React.FC = () => {
   const [showDonationAlert, setShowDonationAlert] = useState(false);
   const [showHomeScreenToast, setShowHomeScreenToast] = useState(false);
 
+  const qs = Math.round(Math.random() * 10000000);
+
   useEffect(() => {
     ReactGA.pageview("Summary");
     checkForFirstTime();
     checkForAddToHome();
     getSummary();
+
+    // const script = document.createElement('script');
+
+    //script.src = "https://uprimp.com/bnr.php?section=Home&pub=129394&format=300x50&ga=g&mbtodb=1";
+    //script.async = true;
+
+    //document.body.appendChild(script);
+
   }, [])
 
   const doRefresh = async (event: CustomEvent) => {
@@ -85,13 +95,7 @@ const SummaryPage: React.FC = () => {
   const donationCard = () => (
     <IonRow>
       <IonCol>
-        {
-          <div style={{ height: 50 }}>
-            <script type="text/javascript"
-              src="https://uprimp.com/bnr.php?section=Home&pub=129394&format=300x50&ga=g&mbtodb=1"></script>
-            <noscript>
-              <a href="https://yllix.com/publishers/129394" target="_blank" rel="noreferrer"><img src="//ylx-aff.advertica-cdn.com/pub_0ei6v1.png" style={{ border: "none", margin: 0, padding: 0, verticalAlign: "baseline" }} alt="ylliX - Online Advertising Network" /></a>
-            </noscript></div>}
+
 
         <IonCard>
           <IonItem>
@@ -154,6 +158,13 @@ const SummaryPage: React.FC = () => {
             </IonCol>
           </IonRow>
           {showDonation && donationCard()}
+          <IonRow>
+            <IonCol>
+              {
+                <iframe src={"https://uprimp.com/bnr_xload.php?section=General&pub=129394&format=300x250&ga=g&mbtodb=1&xt=161133482642541&xtt=" + qs} width="300" height="250" title="ad" scrolling="no" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts" style={{ border: 0, margin: 0, padding: 0 }}></iframe>
+              }
+            </IonCol>
+          </IonRow>
           <IonRow>
             <IonCol>
               <h4>Totais</h4>
