@@ -19,20 +19,20 @@ const SummaryPage: React.FC = () => {
   const [showDonationAlert, setShowDonationAlert] = useState(false);
   const [showHomeScreenToast, setShowHomeScreenToast] = useState(false);
 
-  const qs = Math.round(Math.random() * 10000000);
-
   useEffect(() => {
     ReactGA.pageview("Summary");
     checkForFirstTime();
     checkForAddToHome();
     getSummary();
 
-    // const script = document.createElement('script');
+    const script = document.createElement('script');
 
-    //script.src = "https://uprimp.com/bnr.php?section=Home&pub=129394&format=300x50&ga=g&mbtodb=1";
-    //script.async = true;
+    script.src = "https://www.onclickalgo.com/a/display.php?r=4082335";
+    script.async = false;
 
-    //document.body.appendChild(script);
+    const element = document.getElementById("ad-cash");
+    if (element)
+      element.appendChild(script);
 
   }, [])
 
@@ -159,10 +159,8 @@ const SummaryPage: React.FC = () => {
           </IonRow>
           {showDonation && donationCard()}
           <IonRow>
-            <IonCol>
-              {
-                <iframe src={"https://uprimp.com/bnr_xload.php?section=General&pub=129394&format=300x250&ga=g&mbtodb=1&xt=161133482642541&xtt=" + qs} width="300" height="250" title="ad" scrolling="no" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts" style={{ border: 0, margin: 0, padding: 0 }}></iframe>
-              }
+            <IonCol id="ad-cash">
+
             </IonCol>
           </IonRow>
           <IonRow>
