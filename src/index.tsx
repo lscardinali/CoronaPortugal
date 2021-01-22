@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorkerRegistration';
 import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-67205656-4');
