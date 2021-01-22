@@ -69,22 +69,30 @@ const SummaryPage: React.FC = () => {
     newValue: string | number | null | undefined,
     color = "",
     isPercent = false) => (
-      <IonCard>
-        <IonCardHeader mode="ios">
-          <IonCardTitle color={color}>
-            {value && (isPercent ? value.toLocaleString() + ' %' : value.toLocaleString())}
-            <p style={{ marginBlockStart: "0.2em", fontSize: 12 }}>{newValue && (newValue.toString().indexOf('-') !== -1 ? '' : '+') + newValue.toLocaleString()}</p>
-          </IonCardTitle>
-          <IonCardSubtitle color={color} mode="ios">
-            {title}
-          </IonCardSubtitle>
-        </IonCardHeader>
-      </IonCard>
-    );
+    <IonCard>
+      <IonCardHeader mode="ios">
+        <IonCardTitle color={color}>
+          {value && (isPercent ? value.toLocaleString() + ' %' : value.toLocaleString())}
+          <p style={{ marginBlockStart: "0.2em", fontSize: 12 }}>{newValue && (newValue.toString().indexOf('-') !== -1 ? '' : '+') + newValue.toLocaleString()}</p>
+        </IonCardTitle>
+        <IonCardSubtitle color={color} mode="ios">
+          {title}
+        </IonCardSubtitle>
+      </IonCardHeader>
+    </IonCard>
+  );
 
   const donationCard = () => (
     <IonRow>
       <IonCol>
+        {
+          <div style={{ height: 50 }}>
+            <script type="text/javascript"
+              src="https://uprimp.com/bnr.php?section=Home&pub=129394&format=300x50&ga=g&mbtodb=1"></script>
+            <noscript>
+              <a href="https://yllix.com/publishers/129394" target="_blank" rel="noreferrer"><img src="//ylx-aff.advertica-cdn.com/pub_0ei6v1.png" style={{ border: "none", margin: 0, padding: 0, verticalAlign: "baseline" }} alt="ylliX - Online Advertising Network" /></a>
+            </noscript></div>}
+
         <IonCard>
           <IonItem>
             <IonIcon icon={informationCircle} color="primary" slot="start" />
