@@ -25,17 +25,18 @@ const SummaryPage: React.FC = () => {
     checkForAddToHome();
     getSummary();
 
-    const script = document.createElement('script');
+    // const script = document.createElement('script');
 
-    script.src = "https://www.onclickalgo.com/a/display.php?r=4082335";
-    script.async = false;
+    // script.src = "https://www.onclickalgo.com/a/display.php?r=4082335";
+    // script.async = true;
 
-    const element = document.getElementById("ad-cash");
-    if (element)
-      element.appendChild(script);
+    // const element = document.getElementById("ad-cash");
+    // if (element) {
+
+    //   element.appendChild(script);
+    // }
 
   }, [])
-
   const doRefresh = async (event: CustomEvent) => {
     await getSummary();
     event.detail.complete();
@@ -95,14 +96,12 @@ const SummaryPage: React.FC = () => {
   const donationCard = () => (
     <IonRow>
       <IonCol>
-
-
         <IonCard>
           <IonItem>
             <IonIcon icon={informationCircle} color="primary" slot="start" />
             <IonLabel class="ion-text-wrap">
               Se a App está a lhe ser útil, considere ajudar com os custos de servidor com o valor que quiser
-                    </IonLabel>
+            </IonLabel>
           </IonItem>
           <IonGrid class="ion-no-padding">
             <IonRow>
@@ -160,6 +159,7 @@ const SummaryPage: React.FC = () => {
           {showDonation && donationCard()}
           <IonRow>
             <IonCol id="ad-cash">
+              <script data-cfasync="false" type="text/javascript" src="https://www.onclickalgo.com/a/display.php?r=4082335"></script>
 
             </IonCol>
           </IonRow>
